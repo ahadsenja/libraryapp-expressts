@@ -25,7 +25,15 @@ class App {
     }
 
     protected routes(): void {
-        this.app.use('/api/v1/operators', OperatorRoutes);
+        this.app.use('/api/v1/auth');
+        this.app.use('/api/v1/operator', OperatorRoutes);
+        this.app.use('/api/v1/customer');
+        this.app.use('/api/v1/book');
+        this.app.use('/api/v1/author');
+        this.app.use('/api/v1/genre');
+        this.app.use('/api/v1/category');
+        this.app.use('/api/v1/publisher');
+
     }
 }
 
