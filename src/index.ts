@@ -1,5 +1,9 @@
 import express, { Application, Request, Response } from 'express';
+import bodyParser from 'body-parser';
 import morgan from 'morgan';
+import compression from 'compression';
+import helmet from 'helmet';
+import cors from 'cors';
 
 import OperatorRoutes from './routers/operator/operator.routes';
 
@@ -13,14 +17,14 @@ class App {
     }
 
     protected plugins(): void {
-        this.app.use(morgan('dev'));
+        this.app.use(bodyParser.json()); // check response body from client
+        this.app.use(morgan('dev')); // endpoint logger
+        this.app.use(compression()); // reduce size of response
+        this.app.use(helmet()); // protect header from the client and server side
+        this.app.use(cors()); // allowing frontend to access the endpoint
     }
 
     protected routes(): void {
-        this.app.route('/').get((req: Request, res: Response) => {
-            res.send('This is test from library app');
-        });
-
         this.app.use('/api/v1/operators', OperatorRoutes);
     }
 }
