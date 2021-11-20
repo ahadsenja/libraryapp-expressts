@@ -4,6 +4,7 @@ import morgan from 'morgan';
 import compression from 'compression';
 import helmet from 'helmet';
 import cors from 'cors';
+import { config as dotenv } from 'dotenv';
 
 import OperatorRoutes from './routers/operator/operator.routes';
 
@@ -14,6 +15,7 @@ class App {
         this.app = express();
         this.plugins();
         this.routes();
+        dotenv();
     }
 
     protected plugins(): void {
@@ -25,14 +27,14 @@ class App {
     }
 
     protected routes(): void {
-        this.app.use('/api/v1/auth');
+        // this.app.use('/api/v1/auth');
         this.app.use('/api/v1/operator', OperatorRoutes);
-        this.app.use('/api/v1/customer');
-        this.app.use('/api/v1/book');
-        this.app.use('/api/v1/author');
-        this.app.use('/api/v1/genre');
-        this.app.use('/api/v1/category');
-        this.app.use('/api/v1/publisher');
+        // this.app.use('/api/v1/customer');
+        // this.app.use('/api/v1/book');
+        // this.app.use('/api/v1/author');
+        // this.app.use('/api/v1/genre');
+        // this.app.use('/api/v1/category');
+        // this.app.use('/api/v1/publisher');
 
     }
 }
@@ -42,4 +44,5 @@ const app = new App().app;
 
 app.listen(port, () => {
     console.log('This app is running on port ' + `${port}`);
+    console.log(process.env.DB_HOST);
 });
