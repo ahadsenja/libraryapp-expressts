@@ -1,4 +1,5 @@
 import express, { Application, Request, Response } from 'express';
+import morgan from 'morgan';
 
 import OperatorRoutes from './routers/operator/operator.routes';
 
@@ -7,10 +8,15 @@ class App {
 
     constructor() {
         this.app = express();
+        this.plugins();
         this.routes();
     }
 
-    routes(): void {
+    protected plugins(): void {
+        this.app.use(morgan('dev'));
+    }
+
+    protected routes(): void {
         this.app.route('/').get((req: Request, res: Response) => {
             res.send('This is test from library app');
         });
