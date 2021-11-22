@@ -7,7 +7,8 @@ import cors from 'cors';
 import { config as dotenv } from 'dotenv';
 
 import OperatorRoutes from './routers/operator/operator.routes';
-import customerRoutes from './routers/customer/customer.routes';
+import CustomerRoutes from './routers/customer/customer.routes';
+import BookRoutes from './routers/book/book.routes';
 
 class App {
     public app: Application;
@@ -30,8 +31,8 @@ class App {
     protected routes(): void {
         // this.app.use('/api/v1/auth');
         this.app.use('/api/v1/operator', OperatorRoutes);
-        this.app.use('/api/v1/customer', customerRoutes);
-        // this.app.use('/api/v1/book');
+        this.app.use('/api/v1/customer', CustomerRoutes);
+        this.app.use('/api/v1/book', BookRoutes);
         // this.app.use('/api/v1/author');
         // this.app.use('/api/v1/genre');
         // this.app.use('/api/v1/category');
