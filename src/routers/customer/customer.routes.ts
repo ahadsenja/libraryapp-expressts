@@ -2,7 +2,7 @@ import customerController from "../../controllers/customer/customer.controller";
 import { auth } from "../../middleware/auth.middleware";
 import BaseRoutes from "../base.routes";
 
-class CustomerRouter extends BaseRoutes {
+class CustomerRoutes extends BaseRoutes {
     public routes(): void {
         this.router.get('/', auth, customerController.findAll);
         this.router.get('/:id', auth, customerController.findOne);
@@ -12,4 +12,4 @@ class CustomerRouter extends BaseRoutes {
     }
 }
 
-export default new CustomerRouter().router;
+export default new CustomerRoutes().router;
