@@ -10,6 +10,7 @@ import OperatorRoutes from './routers/operator/operator.routes';
 import CustomerRoutes from './routers/customer/customer.routes';
 import BookRoutes from './routers/book/book.routes';
 import AuthorRoutes from './routers/author/author.routes';
+import GenreRoutes from './routers/genre/genre.routes';
 
 class App {
     public app: Application;
@@ -35,7 +36,7 @@ class App {
         this.app.use('/api/v1/customer', CustomerRoutes);
         this.app.use('/api/v1/book', BookRoutes);
         this.app.use('/api/v1/author', AuthorRoutes);
-        // this.app.use('/api/v1/genre');
+        this.app.use('/api/v1/genre', GenreRoutes);
         // this.app.use('/api/v1/category');
         // this.app.use('/api/v1/publisher');
 
