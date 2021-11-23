@@ -11,6 +11,7 @@ import CustomerRoutes from './routers/customer/customer.routes';
 import BookRoutes from './routers/book/book.routes';
 import AuthorRoutes from './routers/author/author.routes';
 import GenreRoutes from './routers/genre/genre.routes';
+import CategoryRoutes from './routers/category/category.routes';
 
 class App {
     public app: Application;
@@ -37,7 +38,7 @@ class App {
         this.app.use('/api/v1/book', BookRoutes);
         this.app.use('/api/v1/author', AuthorRoutes);
         this.app.use('/api/v1/genre', GenreRoutes);
-        // this.app.use('/api/v1/category');
+        this.app.use('/api/v1/category', CategoryRoutes);
         // this.app.use('/api/v1/publisher');
 
     }
