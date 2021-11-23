@@ -13,6 +13,7 @@ import AuthorRoutes from './routers/author/author.routes';
 import GenreRoutes from './routers/genre/genre.routes';
 import CategoryRoutes from './routers/category/category.routes';
 import PublisherRoutes from './routers/publisher/publisher.routes';
+import SettingRoutes from './routers/setting/setting.routes';
 
 class App {
     public app: Application;
@@ -41,7 +42,7 @@ class App {
         this.app.use('/api/v1/genre', GenreRoutes);
         this.app.use('/api/v1/category', CategoryRoutes);
         this.app.use('/api/v1/publisher', PublisherRoutes);
-
+        this.app.use('/api/v1/setting', SettingRoutes);
     }
 }
 
