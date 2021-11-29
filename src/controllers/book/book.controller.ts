@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import author from "../../db/models/author";
 
 import IController from "../../interface/controller.interface";
 const db = require('../../db/models')
@@ -16,7 +17,8 @@ class BookController implements IController {
         const { id } = req.params;
 
         const book = await db.book.findOne({
-            where: { id }
+            where: { id },
+            attributes: ['id', 'author_id', 'publisher_id', 'category_id', 'genre_id', 'title', 'year', 'stock']
         });
 
         return res.send({
@@ -25,10 +27,10 @@ class BookController implements IController {
     }
 
     create = async (req: Request, res: Response): Promise<Response> => {
-        const { title, year, stock } = req.body;
+        const { author_id, publisher_id, category_id, genre_id, title, year, stock } = req.body;
 
         const book = await db.book.create({
-            title, year, stock
+            author_id, publisher_id, category_id, genre_id, title, year, stock
         });
 
         return res.send({
@@ -38,10 +40,10 @@ class BookController implements IController {
 
     update = async (req: Request, res: Response): Promise<Response> => {
         const { id } = req.params;
-        const { title, year, stock } = req.body;
+        const { author_id, publisher_id, category_id, genre_id, title, year, stock } = req.body;
 
         const book = await db.book.update({
-            title, year, stock
+            author_id, publisher_id, category_id, genre_id, title, year, stock
         }, {
             where: { id }
         });
