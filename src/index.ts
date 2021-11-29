@@ -14,6 +14,7 @@ import GenreRoutes from './routers/genre/genre.routes';
 import CategoryRoutes from './routers/category/category.routes';
 import PublisherRoutes from './routers/publisher/publisher.routes';
 import SettingRoutes from './routers/setting/setting.routes';
+import ChargeRoutes from './routers/charge/charge.routes';
 
 class App {
     public app: Application;
@@ -43,6 +44,7 @@ class App {
         this.app.use('/api/v1/category', CategoryRoutes);
         this.app.use('/api/v1/publisher', PublisherRoutes);
         this.app.use('/api/v1/setting', SettingRoutes);
+        this.app.use('/api/v1/charge', ChargeRoutes)
     }
 }
 
