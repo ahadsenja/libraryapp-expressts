@@ -11,9 +11,17 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      book.hasMany(models.author);
+      book.hasMany(models.publisher);
+      book.hasMany(models.category);
+      book.hasMany(models.genre);
     }
   };
   book.init({
+    author_id: DataTypes.INTEGER,
+    publisher_id: DataTypes.INTEGER,
+    category_id: DataTypes.INTEGER,
+    genre_id: DataTypes.INTEGER,
     title: DataTypes.STRING,
     year: DataTypes.INTEGER,
     stock: DataTypes.INTEGER

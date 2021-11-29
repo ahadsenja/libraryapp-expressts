@@ -1,0 +1,30 @@
+'use strict';
+const {
+  Model
+} = require('sequelize');
+module.exports = (sequelize, DataTypes) => {
+  class book_return extends Model {
+    /**
+     * Helper method for defining associations.
+     * This method is not a part of Sequelize lifecycle.
+     * The `models/index` file will call this method automatically.
+     */
+    static associate(models) {
+      // define association here
+      book_return.hasMany(models.customer);
+      book_return.hasMany(models.book);
+      book_return.hasMany(models.operator);
+    }
+  };
+  book_return.init({
+    customer_id: DataTypes.INTEGER,
+    book_id: DataTypes.INTEGER,
+    operator_id: DataTypes.INTEGER,
+    date: DataTypes.DATE
+  }, {
+    sequelize,
+    modelName: 'book_return',
+    underscored: true,
+  });
+  return book_return;
+};
