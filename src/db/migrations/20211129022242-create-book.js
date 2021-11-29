@@ -8,6 +8,26 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      author_id: {
+        type: Sequelize.INTEGER,
+        references: { model: 'authors', key: 'id' },
+        allowNull: false
+      },
+      publisher_id: {
+        type: Sequelize.INTEGER,
+        references: { model: 'publishers', key: 'id' },
+        allowNull: false
+      },
+      category_id: {
+        type: Sequelize.INTEGER,
+        references: { model: 'categories', key: 'id' },
+        allowNull: false
+      },
+      genre_id: {
+        type: Sequelize.INTEGER,
+        references: { model: 'genres', key: 'id' },
+        allowNull: false
+      },
       title: {
         type: Sequelize.STRING
       },
