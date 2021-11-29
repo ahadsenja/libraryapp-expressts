@@ -11,9 +11,20 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      book_return.hasMany(models.customer);
-      book_return.hasMany(models.book);
-      book_return.hasMany(models.operator);
+      book_return.belongsTo(models.book, {
+        foreignKey: 'book_id',
+        as: 'book'
+      });
+
+      book_return.belongsTo(models.operator, {
+        foreignKey: 'operator_id',
+        as: 'operator'
+      });
+
+      book_return.belongsTo(models.customer, {
+        foreignKey: 'customer_id',
+        as: 'customer'
+      });
     }
   };
   book_return.init({

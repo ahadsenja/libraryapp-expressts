@@ -11,9 +11,20 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      borrow.hasMany(models.book);
-      borrow.hasMany(models.customer);
-      borrow.hasMany(models.operator);
+      borrow.belongsTo(models.book, {
+        foreignKey: 'book_id',
+        as: 'book'
+      });
+
+      borrow.belongsTo(models.operator, {
+        foreignKey: 'operator_id',
+        as: 'operator'
+      });
+
+      borrow.belongsTo(models.customer, {
+        foreignKey: 'customer_id',
+        as: 'customer'
+      });
     }
   };
   borrow.init({

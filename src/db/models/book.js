@@ -11,10 +11,37 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      book.hasMany(models.author);
-      book.hasMany(models.publisher);
-      book.hasMany(models.category);
-      book.hasMany(models.genre);
+      book.belongsTo(models.author, {
+        foreignKey: 'author_id',
+        as: 'author'
+      });
+
+      book.belongsTo(models.publisher, {
+        foreignKey: 'publisher_id',
+        as: 'publisher'
+      });
+
+      book.belongsTo(models.category, {
+        foreignKey: 'category_id',
+        as: 'category'
+      });
+
+      book.belongsTo(models.genre, {
+        foreignKey: 'genre_id',
+        as: 'genre'
+      });
+
+      // has many book return
+      book.hasMany(models.book_return, {
+        foreignKey: 'book_id',
+        as: 'book_return'
+      })
+
+      // has many borrow
+      book.hasMany(models.borrow, {
+        foreignKey: 'book_id',
+        as: 'borrow'
+      });
     }
   };
   book.init({
