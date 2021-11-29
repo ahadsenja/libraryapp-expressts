@@ -1,11 +1,16 @@
 import { Request, Response } from "express";
+import book from "../../db/models/book";
 
 import IController from "../../interface/controller.interface";
 const db = require('../../db/models');
 
 class AuthorController implements IController {
     findAll = async (req: Request, res: Response): Promise<Response> => {
-        const authors = await db.author.findAll();
+        const authors = await db.author.findAll({
+            minclude: [{
+                model: book
+            }]
+        });
         return res.send({
             data: authors
         });
