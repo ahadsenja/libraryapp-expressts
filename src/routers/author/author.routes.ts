@@ -1,5 +1,5 @@
 import authorController from "../../controllers/author/author.controller";
-import { auth } from "../../middleware/auth.middleware";
+import { auth } from "../../middlewares/auth.middleware";
 import BaseRoutes from "../base.routes";
 
 class AuthorRoutes extends BaseRoutes {

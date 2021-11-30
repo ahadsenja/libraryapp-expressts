@@ -1,5 +1,5 @@
 import CategoryController from "../../controllers/category/category.controller";
-import { auth } from "../../middleware/auth.middleware";
+import { auth } from "../../middlewares/auth.middleware";
 import BaseRoutes from "../base.routes";
 
 class CategoryRoutes extends BaseRoutes {

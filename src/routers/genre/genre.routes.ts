@@ -1,4 +1,4 @@
-import { auth } from "../../middleware/auth.middleware";
+import { auth } from "../../middlewares/auth.middleware";
 import GenreController from "../../controllers/genre/genre.controller";
 import BaseRoutes from "../base.routes";
 

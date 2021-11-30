@@ -1,5 +1,5 @@
 import customerController from "../../controllers/customer/customer.controller";
-import { auth } from "../../middleware/auth.middleware";
+import { auth } from "../../middlewares/auth.middleware";
 import BaseRoutes from "../base.routes";
 
 class CustomerRoutes extends BaseRoutes {

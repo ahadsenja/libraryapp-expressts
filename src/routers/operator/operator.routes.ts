@@ -1,6 +1,6 @@
 import BaseRoutes from '../base.routes';
 import OperatorController from '../../controllers/operator/operator.controller';
-import { auth } from '../../middleware/auth.middleware';
+import { auth } from '../../middlewares/auth.middleware';
 
 class OperatorRoutes extends BaseRoutes {
 

@@ -1,5 +1,5 @@
 import ChargeController from "../../controllers/charge/charge.controller";
-import { auth } from "../../middleware/auth.middleware";
+import { auth } from "../../middlewares/auth.middleware";
 import BaseRoutes from "../base.routes";
 
 class ChargeRoutes extends BaseRoutes {

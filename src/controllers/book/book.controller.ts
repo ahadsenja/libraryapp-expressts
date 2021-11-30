@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import author from "../../db/models/author";
 
-import IController from "../../interface/controller.interface";
+import IController from "../../interfaces/controller.interface";
 const db = require('../../db/models')
 
 class BookController implements IController {

@@ -1,5 +1,5 @@
 import BookReturnController from "../../controllers/book_return/book_return.controller";
-import { auth } from "../../middleware/auth.middleware";
+import { auth } from "../../middlewares/auth.middleware";
 import BaseRoutes from "../base.routes";
 
 class BookReturnRoutes extends BaseRoutes {

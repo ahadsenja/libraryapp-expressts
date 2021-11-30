@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 const db = require('../../db/models');
 
-import IController from '../../interface/controller.interface';
+import IController from '../../interfaces/controller.interface';
 
 class OperatorController implements IController {
     findAll = async (req: Request, res: Response): Promise<Response> => {

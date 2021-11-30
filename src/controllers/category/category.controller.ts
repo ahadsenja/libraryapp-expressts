@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 
-import IController from "../../interface/controller.interface";
+import IController from "../../interfaces/controller.interface";
 const db = require('../../db/models');
 
 class CategoryController implements IController {
