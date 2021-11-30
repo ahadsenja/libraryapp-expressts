@@ -5,7 +5,10 @@ const db = require('../../db/models');
 
 class BorrowController implements IController {
     findAll = async (req: Request, res: Response): Promise<Response> => {
-        const borrow = await db.borrow.findAll();
+        const borrow = await db.borrow.findAll({
+            attributes: ['id', 'borrow_date', 'return_date'],
+            include: ['book', 'customer', 'operator']
+        });
 
         return res.send({
             data: borrow
