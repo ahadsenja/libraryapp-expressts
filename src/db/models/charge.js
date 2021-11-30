@@ -16,7 +16,8 @@ module.exports = (sequelize, DataTypes) => {
   };
   charge.init({
     book_return_id: DataTypes.INTEGER,
-    date: DataTypes.DATE
+    date: DataTypes.DATE,
+    cost: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'charge',
