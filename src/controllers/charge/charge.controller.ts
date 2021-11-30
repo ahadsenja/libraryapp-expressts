@@ -6,7 +6,7 @@ const db = require("../../db/models");
 class ChargeController implements IController {
     findAll = async (req: Request, res: Response): Promise<Response> => {
         const charges = await db.charge.findAll({
-            attributes: ['id', 'date'],
+            attributes: ['id', 'date', 'cost'],
             include: ['book_return']
         });
 
@@ -28,10 +28,10 @@ class ChargeController implements IController {
     }
 
     create = async (req: Request, res: Response): Promise<Response> => {
-        const { book_return_id, date } = req.body;
+        const { book_return_id, date, cost } = req.body;
 
         const charge = await db.charge.create({
-            book_return_id, date
+            book_return_id, date, cost
         });
 
         return res.send({
@@ -41,10 +41,10 @@ class ChargeController implements IController {
 
     update = async (req: Request, res: Response): Promise<Response> => {
         const { id } = req.params;
-        const { book_return_id, date } = req.body;
+        const { book_return_id, date, cost } = req.body;
 
         const charge = await db.charge.update({
-            book_return_id, date
+            book_return_id, date, cost
         }, {
             where: { id }
         });
