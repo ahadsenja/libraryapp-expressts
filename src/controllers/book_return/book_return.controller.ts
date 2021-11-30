@@ -5,7 +5,10 @@ const db = require('../../db/models');
 
 class BookReturnController implements IController {
     findAll = async (req: Request, res: Response): Promise<Response> => {
-        const bookReturns = await db.book_return.findAll();
+        const bookReturns = await db.book_return.findAll({
+            attributes: ['id', 'date'],
+            include: ['book', 'customer', 'operator']
+        });
 
         return res.send({
             data: bookReturns
@@ -25,10 +28,10 @@ class BookReturnController implements IController {
     }
 
     create = async (req: Request, res: Response): Promise<Response> => {
-        const { data, book_id, customer_id, operator_id } = req.body;
+        const { date, book_id, customer_id, operator_id } = req.body;
 
         const bookReturn = await db.book_return.create({
-            data, book_id, customer_id, operator_id
+            date, book_id, customer_id, operator_id
         });
 
         return res.send({
@@ -38,10 +41,10 @@ class BookReturnController implements IController {
 
     update = async (req: Request, res: Response): Promise<Response> => {
         const { id } = req.params;
-        const { data, book_id, customer_id, operator_id } = req.body;
+        const { date, book_id, customer_id, operator_id } = req.body;
 
         const bookReturn = await db.book_return.update({
-            data, book_id, customer_id, operator_id
+            date, book_id, customer_id, operator_id
         }, {
             where: { id }
         });
