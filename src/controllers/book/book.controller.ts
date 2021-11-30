@@ -6,7 +6,10 @@ const db = require('../../db/models')
 
 class BookController implements IController {
     findAll = async (req: Request, res: Response): Promise<Response> => {
-        const books = await db.book.findAll();
+        const books = await db.book.findAll({
+            attributes: ['id', 'title', 'year', 'stock'],
+            include: ['author', 'publisher', 'category', 'genre']
+        });
 
         return res.send({
             data: books
