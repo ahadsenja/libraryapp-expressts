@@ -48,7 +48,7 @@ class App {
         this.app.use('/api/v1/publisher', PublisherRoutes);
         this.app.use('/api/v1/setting', SettingRoutes);
         this.app.use('/api/v1/charge', ChargeRoutes);
-        this.app.use('/api/v1/book_return', BookReturnRoutes);
+        this.app.use('/api/v1/bookreturn', BookReturnRoutes);
         this.app.use('/api/v1/borrow', BorrowRoutes);
     }
 }

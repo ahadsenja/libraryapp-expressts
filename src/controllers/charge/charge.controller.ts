@@ -55,7 +55,7 @@ class ChargeController implements IController {
     }
 
     delete = async (req: Request, res: Response): Promise<Response> => {
-        const { id } = req.body;
+        const { id } = req.params;
 
         const charge = await db.charge.destroy({
             where: { id }

@@ -9,7 +9,12 @@ class AuthController {
         const hashedPassword: string = await Authentication.passwordHash(password);
 
         await db.operator.create({
-            name, username, email, password: hashedPassword, handphone, address
+            name,
+            username,
+            email,
+            password: hashedPassword,
+            handphone,
+            address
         });
 
         return res.send('New user or operator registered');
@@ -29,6 +34,7 @@ class AuthController {
         //generate token
         if (compare) {
             let token = Authentication.generateToken(user.id, email, user.password);
+
             return res.send({
                 token
             });

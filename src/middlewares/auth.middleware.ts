@@ -15,9 +15,9 @@ export const auth = (req: Request, res: Response, next: NextFunction): any => {
         if (credential) {
             req.app.locals.credential = credential;
             next();
+        } else {
+            return res.send('Invalid token');
         }
-
-        return res.send('Invalid token');
     } catch (error) {
         return res.send(error);
     }
