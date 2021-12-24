@@ -16,22 +16,27 @@ module.exports = (sequelize, DataTypes) => {
         as: 'book'
       });
 
+      book_return.belongsTo(models.customer, {
+        foreignKey: 'customer_id',
+        as: 'customer'
+      });
+
       book_return.belongsTo(models.operator, {
         foreignKey: 'operator_id',
         as: 'operator'
       });
 
-      book_return.belongsTo(models.customer, {
-        foreignKey: 'customer_id',
-        as: 'customer'
+      book_return.belongsTo(models.charge, {
+        foreignKey: 'book_return_id',
+        as: 'charge'
       });
     }
   };
   book_return.init({
-    customer_id: DataTypes.INTEGER,
+    date: DataTypes.DATE,
     book_id: DataTypes.INTEGER,
-    operator_id: DataTypes.INTEGER,
-    date: DataTypes.DATE
+    customer_id: DataTypes.INTEGER,
+    operator_id: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'book_return',

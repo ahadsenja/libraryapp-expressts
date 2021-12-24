@@ -1,41 +1,33 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('books', {
+    await queryInterface.createTable('borrows', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      author_id: {
+      borrow_date: {
+        type: Sequelize.DATE
+      },
+      return_date: {
+        type: Sequelize.DATE
+      },
+      book_id: {
         type: Sequelize.INTEGER,
-        references: { model: 'authors', key: 'id' },
+        references: { model: 'books', key: 'id' },
         allowNull: false
       },
-      publisher_id: {
+      customer_id: {
         type: Sequelize.INTEGER,
-        references: { model: 'publishers', key: 'id' },
+        references: { model: 'customers', key: 'id' },
         allowNull: false
       },
-      category_id: {
+      operator_id: {
         type: Sequelize.INTEGER,
-        references: { model: 'categories', key: 'id' },
+        references: { model: 'operators', key: 'id' },
         allowNull: false
-      },
-      genre_id: {
-        type: Sequelize.INTEGER,
-        references: { model: 'genres', key: 'id' },
-        allowNull: false
-      },
-      title: {
-        type: Sequelize.STRING
-      },
-      year: {
-        type: Sequelize.INTEGER
-      },
-      stock: {
-        type: Sequelize.INTEGER
       },
       created_at: {
         allowNull: false,
@@ -48,6 +40,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('books');
+    await queryInterface.dropTable('borrows');
   }
 };

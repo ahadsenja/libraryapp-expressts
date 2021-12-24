@@ -12,12 +12,12 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       operator.hasMany(models.book_return, {
-        foreignKey: 'operator_id',
+        foreignKey: 'customer_id',
         as: 'book_return'
       });
 
       operator.hasMany(models.borrow, {
-        foreignKey: 'operator_id',
+        foreignKey: 'customer_id',
         as: 'borrow'
       });
     }
@@ -27,8 +27,11 @@ module.exports = (sequelize, DataTypes) => {
     username: DataTypes.STRING,
     email: DataTypes.STRING,
     password: DataTypes.STRING,
-    handphone: DataTypes.INTEGER,
-    address: DataTypes.STRING
+    handphone: DataTypes.STRING,
+    address: DataTypes.STRING,
+    google_id: DataTypes.STRING,
+    facebook_id: DataTypes.STRING,
+    github_id: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'operator',

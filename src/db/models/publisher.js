@@ -19,6 +19,7 @@ module.exports = (sequelize, DataTypes) => {
   };
   publisher.init({
     name: DataTypes.STRING,
+    email: DataTypes.STRING,
     city: DataTypes.STRING,
     address: DataTypes.STRING
   }, {

@@ -1,12 +1,15 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('borrows', {
+    await queryInterface.createTable('book_returns', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
+      },
+      date: {
+        type: Sequelize.DATE
       },
       book_id: {
         type: Sequelize.INTEGER,
@@ -23,12 +26,6 @@ module.exports = {
         references: { model: 'operators', key: 'id' },
         allowNull: false
       },
-      borrow_date: {
-        type: Sequelize.DATE
-      },
-      return_date: {
-        type: Sequelize.DATE
-      },
       created_at: {
         allowNull: false,
         type: Sequelize.DATE
@@ -40,6 +37,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('borrows');
+    await queryInterface.dropTable('book_returns');
   }
 };

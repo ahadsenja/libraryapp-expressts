@@ -5,10 +5,14 @@ const db = require('../../db/models');
 
 class AuthController {
     register = async (req: Request, res: Response): Promise<Response> => {
-        const { name, username, email, password, handphone, address } = req.body;
+        const { google_id, facebook_id, github_id, name, username, email, password, handphone, address } = req.body;
+
         const hashedPassword: string = await Authentication.passwordHash(password);
 
-        await db.operator.create({
+        const data = await db.operator.create({
+            google_id,
+            facebook_id,
+            github_id,
             name,
             username,
             email,
@@ -17,7 +21,9 @@ class AuthController {
             address
         });
 
-        return res.send('New user or operator registered');
+        return res.send(data);
+
+        // return res.send('New user or operator registered');
     }
 
     login = async (req: Request, res: Response): Promise<Response> => {

@@ -27,10 +27,10 @@ class OperatorController implements IController {
     }
 
     create = async (req: Request, res: Response): Promise<Response> => {
-        const { name, username, email, password, handphone, address } = req.body;
+        const { google_id, facebook_id, github_id, name, username, email, password, handphone, address } = req.body;
 
         const operator = await db.operator.create({
-            name, username, email, password, handphone, address
+            google_id, facebook_id, github_id, name, username, email, password, handphone, address
         });
 
         return res.send({

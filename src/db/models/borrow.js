@@ -16,23 +16,23 @@ module.exports = (sequelize, DataTypes) => {
         as: 'book'
       });
 
-      borrow.belongsTo(models.operator, {
-        foreignKey: 'operator_id',
-        as: 'operator'
-      });
-
       borrow.belongsTo(models.customer, {
         foreignKey: 'customer_id',
         as: 'customer'
       });
+
+      borrow.belongsTo(models.operator, {
+        foreignKey: 'operator_id',
+        as: 'operator'
+      });
     }
   };
   borrow.init({
+    borrow_date: DataTypes.DATE,
+    return_date: DataTypes.DATE,
     book_id: DataTypes.INTEGER,
     customer_id: DataTypes.INTEGER,
-    operator_id: DataTypes.INTEGER,
-    borrow_date: DataTypes.DATE,
-    return_date: DataTypes.DATE
+    operator_id: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'borrow',
