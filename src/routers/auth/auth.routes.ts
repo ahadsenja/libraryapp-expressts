@@ -10,10 +10,6 @@ class AuthRoutes extends BaseRoutes {
         this.router.post('/login', validate, AuthController.login);
         this.router.post('/google', AuthController.loginWithGoogle);
         this.router.get('/profile', auth, AuthController.profile);
-
-        // this.router.post('/google', auth, validate, passport.authenticate(
-        //     'google-token', { session: false }
-        // ), AuthController.loginWithGoogle);
     }
 }
 
