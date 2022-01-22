@@ -83,7 +83,7 @@ class AuthController {
             email: payload['email']
         }
 
-        // Check if user exist
+        // check if user exist
         const existingGoogleUser = await db.operator.findOne({ where: { google_id: userDetails.google_id } });
 
         if (existingGoogleUser) {
@@ -110,6 +110,11 @@ class AuthController {
             }
         }
         return res.send({ message: 'User not found' });
+
+    }
+
+    // do login with facebook
+    loginWithFacebook = async (req: Request, res: Response, next: NextFunction): Promise<Response> => {
 
     }
 
