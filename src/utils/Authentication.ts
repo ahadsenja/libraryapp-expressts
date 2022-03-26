@@ -11,7 +11,7 @@ class Authentication {
         return result;
     }
 
-    public static generateToken = (id: number, email: string, password: string): string => {
+    public static generateToken = (id: string, email: string, password: string): string => {
         const secretKey: string = process.env.JWT_SECRET_KEY || 'secretkey';
         const token: string = jwt.sign({ id, email, password }, secretKey);
         return token;

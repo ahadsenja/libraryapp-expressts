@@ -5,8 +5,7 @@ const { OAuth2Client } = require('google-auth-library');
 import Authentication from "../../utils/Authentication";
 const db = require('../../db/models');
 
-const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
-
+const googleClient = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 class AuthController {
     register = async (req: Request, res: Response): Promise<Response> => {
@@ -28,21 +27,17 @@ class AuthController {
 
         return res.send(data);
 
-        // return res.send('New user or operator registered');
     }
 
     login = async (req: Request, res: Response): Promise<Response> => {
         const { email, password } = req.body;
 
-        // find user by email
         const user = await db.operator.findOne({
             where: { email }
         });
 
-        // check password from parameter and password on database
         let compare = await Authentication.passwordCompare(password, user.password);
 
-        //generate token
         if (compare) {
             let token = Authentication.generateToken(user.id, email, user.password);
             console.log('token mustofa: ', token)
@@ -55,17 +50,14 @@ class AuthController {
     }
 
     loginWithGoogle = async (req: Request, res: Response, next: NextFunction): Promise<Response> => {
-        // Verify the token using google client id
-        const ticket = await client.verifyIdToken({
-            idToken: req.body.token,
+        const ticket = await googleClient.verifyIdToken({
+            idToken: req.body.idToken,
             audience: process.env.GOOGLE_CLIENT_ID
         });
 
-        // if verification is ok, google return a jwt
         const payload = ticket.getPayload();
         const userId = payload['sub'];
 
-        // Check if the jwt is issued for our client
         const audience = payload.aud;
         if (audience !== process.env.GOOGLE_CLIENT_ID) {
             throw new Error(
@@ -83,7 +75,6 @@ class AuthController {
             email: payload['email']
         }
 
-        // check if user exist
         const existingGoogleUser = await db.operator.findOne({ where: { google_id: userDetails.google_id } });
 
         if (existingGoogleUser) {
@@ -109,18 +100,38 @@ class AuthController {
                 });
             }
         }
-        return res.send({ message: 'User not found' });
 
+        return res.send({ message: 'User not found' });
     }
 
-    // do login with facebook
-    loginWithFacebook = async (req: Request, res: Response, next: NextFunction): Promise<Response> => {
+    loginWithFacebook() {
+        FB.login((response: any) => {
+            console.log(response);
+        })
+    }
 
+    loginWithGithub = async (req: Request, res: Response, next: NextFunction): Promise<Response> => {
+        const { query } = req;
+        const { code } = query;
+
+        if (!code) {
+            return res.send({
+                success: false,
+                message: 'Error: no code'
+            })
+        }
+
+        return res.send({
+            success: true,
+            code: code,
+            message: 'Successfully return the code'
+        })
     }
 
     profile = (req: Request, res: Response): Response => {
         return res.send(req.app.locals.credential);
     }
+
 }
 
 export default new AuthController();

@@ -19,6 +19,7 @@ import BookReturnRoutes from './routers/book_return/book_return.routes';
 import BorrowRoutes from './routers/borrow/borrow.routes';
 import AuthRoutes from './routers/auth/auth.routes';
 
+
 class App {
     public app: Application;
 
