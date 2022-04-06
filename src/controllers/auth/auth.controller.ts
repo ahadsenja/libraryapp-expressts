@@ -1,6 +1,4 @@
 import { NextFunction, Request, Response } from "express";
-import passport from "passport";
-const GithubStrategy = require('passport-github2').Strategy;
 const jwt = require('jsonwebtoken');
 const { OAuth2Client } = require('google-auth-library');
 
@@ -81,19 +79,15 @@ class AuthController {
 
         if (existingGoogleUser) {
             const existingEmailUser = await db.operator.findOne({ where: { email: userDetails.email } });
-            console.log('Email user: ', existingEmailUser);
 
             if (existingEmailUser) {
                 let token = Authentication.generateToken(userDetails.google_id, existingEmailUser, userDetails.name);
-                console.log('Token login backend: ', token);
                 return res.send({
                     token
                 });
             } else {
                 const newUser = await db.operator.create(userDetails);
                 const token = jwt.sign(userDetails, process.env.JWT_SECRET_KEY);
-
-                console.log('Token baru dari backend: ', token);
 
                 return res.status(200).send({
                     data: newUser,
@@ -104,20 +98,6 @@ class AuthController {
         }
 
         return res.send({ message: 'User not found' });
-    }
-
-    loginWithGithub = async (req: Request, res: Response, next: NextFunction) => {
-        passport.use(new GithubStrategy(
-            {
-                clientID: '52d790b26ee61d7cc119',
-                clientSecret: 'db353b8e1b75c97d68064db95b75feddf9c2b8d1',
-                callbackURL: 'http://localhost:8000/api/v1/auth/github',
-            },
-
-            (req: any, accessToken: any, refreshToken: any, profile: any, cb: any) => {
-                return cb(null, profile);
-            }
-        ))
     }
 
     profile = (req: Request, res: Response): Response => {
