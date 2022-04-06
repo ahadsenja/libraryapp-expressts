@@ -1,4 +1,6 @@
 import { NextFunction, Request, Response } from "express";
+import passport from "passport";
+const GithubStrategy = require('passport-github2').Strategy;
 const jwt = require('jsonwebtoken');
 const { OAuth2Client } = require('google-auth-library');
 
@@ -104,28 +106,18 @@ class AuthController {
         return res.send({ message: 'User not found' });
     }
 
-    loginWithFacebook() {
-        FB.login((response: any) => {
-            console.log(response);
-        })
-    }
+    loginWithGithub = async (req: Request, res: Response, next: NextFunction) => {
+        passport.use(new GithubStrategy(
+            {
+                clientID: '52d790b26ee61d7cc119',
+                clientSecret: 'db353b8e1b75c97d68064db95b75feddf9c2b8d1',
+                callbackURL: 'http://localhost:8000/api/v1/auth/github',
+            },
 
-    loginWithGithub = async (req: Request, res: Response, next: NextFunction): Promise<Response> => {
-        const { query } = req;
-        const { code } = query;
-
-        if (!code) {
-            return res.send({
-                success: false,
-                message: 'Error: no code'
-            })
-        }
-
-        return res.send({
-            success: true,
-            code: code,
-            message: 'Successfully return the code'
-        })
+            (req: any, accessToken: any, refreshToken: any, profile: any, cb: any) => {
+                return cb(null, profile);
+            }
+        ))
     }
 
     profile = (req: Request, res: Response): Response => {
