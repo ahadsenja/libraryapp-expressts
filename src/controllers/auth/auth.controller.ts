@@ -100,7 +100,7 @@ class AuthController {
         return res.send({ message: 'User not found' });
     }
 
-    profile = (req: Request, res: Response): Response => {
+    profile = async (req: Request, res: Response): Promise<Response> => {
         return res.send(req.app.locals.credential);
     }
 
