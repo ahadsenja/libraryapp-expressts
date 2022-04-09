@@ -21,21 +21,21 @@ class AuthRoutes extends BaseRoutes {
 
         this.router.post('/google', AuthController.loginWithGoogle);
 
-        this.router.get('/facebook', passport.authenticate('facebook'), (req: Request, res: Response) => {
-            console.log('Requested User: ', req.user);
-        });
-        this.router.get('/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/login' }), (req: Request, res: Response) => {
-            res.redirect('http://localhost:4200/dashboard/dashboard');
-        });
-
-        this.router.get('/github', passport.authenticate('github'), (req: Request, res: Response) => {
-            console.log('Requested User: ', req.user);
-        });
-        this.router.get('/github/callback', passport.authenticate('github', { failureRedirect: '/login' }), (req: Request, res: Response) => {
-            res.redirect('http://localhost:4200/dashboard/dashboard');
-        });
-
         this.router.get('/profile', auth, AuthController.profile);
+
+        // this.router.get('/facebook', passport.authenticate('facebook'), (req: Request, res: Response) => {
+        //     console.log('Requested User: ', req.user);
+        // });
+        // this.router.get('/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/login' }), (req: Request, res: Response) => {
+        //     res.redirect('http://localhost:4200/dashboard/dashboard');
+        // });
+
+        // this.router.get('/github', passport.authenticate('github'), (req: Request, res: Response) => {
+        //     console.log('Requested User: ', req.user);
+        // });
+        // this.router.get('/github/callback', passport.authenticate('github', { failureRedirect: '/login' }), (req: Request, res: Response) => {
+        //     res.redirect('http://localhost:4200/dashboard/dashboard');
+        // });
     }
 }
 
