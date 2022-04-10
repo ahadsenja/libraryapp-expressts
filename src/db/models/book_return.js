@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
         as: 'operator'
       });
 
-      book_return.belongsTo(models.charge, {
+      book_return.hasMany(models.charge, {
         foreignKey: 'book_return_id',
         as: 'charge'
       });
