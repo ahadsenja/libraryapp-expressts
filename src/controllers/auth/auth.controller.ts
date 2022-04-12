@@ -7,6 +7,8 @@ const db = require('../../db/models');
 
 const googleClient = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
+require("dotenv").config();
+
 class AuthController {
     register = async (req: Request, res: Response): Promise<Response> => {
         const { google_id, facebook_id, github_id, name, username, email, password, handphone, address } = req.body;
@@ -56,9 +58,8 @@ class AuthController {
         });
 
         const payload = ticket.getPayload();
-        const userId = payload['sub'];
-
         const audience = payload.aud;
+
         if (audience !== process.env.GOOGLE_CLIENT_ID) {
             throw new Error(
                 'error while authenticating google user: audience mismatch: wanted [' +
@@ -85,19 +86,17 @@ class AuthController {
                 return res.send({
                     token
                 });
-            } else {
-                const newUser = await db.operator.create(userDetails);
-                const token = jwt.sign(userDetails, process.env.JWT_SECRET_KEY);
-
-                return res.status(200).send({
-                    data: newUser,
-                    token: token,
-                    message: 'New User Created With Google Account'
-                });
             }
         }
 
-        return res.send({ message: 'User not found' });
+        const newUser = await db.operator.create(userDetails);
+        const token = jwt.sign(userDetails, process.env.JWT_SECRET_KEY);
+
+        return res.status(200).send({
+            data: newUser,
+            token: token,
+            message: 'New User Created With Google Account'
+        });
     }
 
     profile = async (req: Request, res: Response): Promise<Response> => {
