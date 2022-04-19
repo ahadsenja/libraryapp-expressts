@@ -9,6 +9,7 @@ class BorrowRoutes extends BaseRoutes {
         this.router.post('/', auth, BorrowController.create);
         this.router.put('/:id', auth, BorrowController.update);
         this.router.delete('/:id', auth, BorrowController.delete);
+        this.router.get('/book-borrowed/:id', auth, BorrowController.showBorrowByCustomerId);
     }
 }
 
