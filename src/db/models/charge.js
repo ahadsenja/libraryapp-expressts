@@ -20,7 +20,9 @@ module.exports = (sequelize, DataTypes) => {
   charge.init({
     date: DataTypes.DATE,
     cost: DataTypes.FLOAT,
-    book_return_id: DataTypes.INTEGER
+    book_return_id: DataTypes.INTEGER,
+    customer_id: DataTypes.INTEGER,
+    operator_id: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'charge',
