@@ -7,7 +7,16 @@ class BookReturnController implements IController {
     findAll = async (req: Request, res: Response): Promise<Response> => {
         const bookReturns = await db.book_return.findAll({
             attributes: ['id', 'date'],
-            include: ['book', 'customer', 'operator']
+            include: [{
+                model: db.book,
+                as: 'book'
+            }, {
+                model: db.customer,
+                as: 'customer'
+            }, {
+                model: db.operator,
+                as: 'operator'
+            }]
         });
 
         return res.send({
