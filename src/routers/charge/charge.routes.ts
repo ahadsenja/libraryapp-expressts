@@ -9,6 +9,7 @@ class ChargeRoutes extends BaseRoutes {
         this.router.post('/', auth, ChargeController.create);
         this.router.put('/:id', auth, ChargeController.update);
         this.router.delete('/:id', auth, ChargeController.delete);
+        this.router.get('/show-charges/:id', auth, ChargeController.showChargeByCustomerId);
     }
 }
 
