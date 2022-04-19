@@ -19,7 +19,8 @@ class BorrowController implements IController {
         const { id } = req.params;
 
         const borrow = await db.borrow.findOne({
-            where: { id }
+            where: { id },
+            include: ['book', 'customer', 'operator']
         });
 
         return res.send({
@@ -63,6 +64,19 @@ class BorrowController implements IController {
 
         return res.send({
             data: borrow
+        });
+    }
+
+    showBorrowByCustomerId = async (req: Request, res: Response): Promise<Response> => {
+        const customer_id = req.params.id;
+
+        const book_borrowed = await db.borrow.findAll({
+            where: { customer_id },
+            include: ['book', 'customer', 'operator']
+        });
+
+        return res.send({
+            data: book_borrowed
         });
     }
 }
