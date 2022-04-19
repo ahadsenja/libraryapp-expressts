@@ -7,7 +7,20 @@ class ChargeController implements IController {
     findAll = async (req: Request, res: Response): Promise<Response> => {
         const charges = await db.charge.findAll({
             attributes: ['id', 'date', 'cost'],
-            include: ['book_return']
+            include: [{
+                model: db.book_return,
+                as: 'book_return',
+                include: [{
+                    model: db.book,
+                    as: 'book'
+                }, {
+                    model: db.customer,
+                    as: 'customer'
+                }, {
+                    model: db.operator,
+                    as: 'operator'
+                }]
+            }]
         });
 
         return res.send({
@@ -19,7 +32,8 @@ class ChargeController implements IController {
         const { id } = req.params;
 
         const charge = await db.charge.findOne({
-            where: { id }
+            where: { id },
+            include: ['book_return', 'customer', 'operator']
         });
 
         return res.send({
@@ -28,10 +42,11 @@ class ChargeController implements IController {
     }
 
     create = async (req: Request, res: Response): Promise<Response> => {
-        const { book_return_id, date, cost } = req.body;
+        const { date, cost, customer_id, operator_id, book_return_id } = req.body;
 
         const charge = await db.charge.create({
-            book_return_id, date, cost
+            date, cost, customer_id, operator_id, book_return_id,
+            include: ['book_return', 'customer', 'operator']
         });
 
         return res.send({
@@ -63,6 +78,19 @@ class ChargeController implements IController {
 
         return res.send({
             data: charge
+        });
+    }
+
+    showChargeByCustomerId = async (req: Request, res: Response): Promise<Response> => {
+        const customer_id = req.params.id;
+
+        const charges = await db.charge.findAll({
+            where: { customer_id },
+            include: ['book_return', 'customer', 'operator']
+        });
+
+        return res.send({
+            data: charges
         });
     }
 }
