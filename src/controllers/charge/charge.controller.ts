@@ -5,7 +5,7 @@ const db = require("../../db/models");
 
 class ChargeController implements IController {
     findAll = async (req: Request, res: Response): Promise<Response> => {
-        const charges = await db.charge.findAll({
+        const charges = await db.borrow.findAll({
             attributes: ['id', 'date', 'cost'],
             include: [{
                 model: db.book_return,
