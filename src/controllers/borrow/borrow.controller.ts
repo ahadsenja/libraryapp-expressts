@@ -1,7 +1,10 @@
 import { Request, Response } from "express";
+import dotenv from 'dotenv';
 
 import IController from "../../interfaces/controller.interface";
+
 const db = require('../../db/models');
+dotenv.config();
 
 class BorrowController implements IController {
     findAll = async (req: Request, res: Response): Promise<Response> => {
@@ -31,8 +34,10 @@ class BorrowController implements IController {
     create = async (req: Request, res: Response): Promise<Response> => {
         const { book_id, customer_id, operator_id, borrow_date, return_date } = req.body;
 
+
         const borrow = await db.borrow.create({
-            book_id, customer_id, operator_id, borrow_date, return_date
+            book_id, customer_id, operator_id, borrow_date, return_date,
+            include: ['book', 'customer', 'operator']
         });
 
         return res.send({
