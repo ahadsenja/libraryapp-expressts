@@ -1,12 +1,11 @@
-import express, { Application, NextFunction, Request, Response } from 'express';
+import express, { Application } from 'express';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import compression from 'compression';
 import helmet from 'helmet';
 import cors from 'cors';
-import { config as dotenv } from 'dotenv';
-import passport from 'passport';
 import session from 'express-session';
+import { config as dotenv } from 'dotenv';
 
 import OperatorRoutes from './routers/operator/operator.routes';
 import CustomerRoutes from './routers/customer/customer.routes';
@@ -20,6 +19,7 @@ import ChargeRoutes from './routers/charge/charge.routes';
 import BookReturnRoutes from './routers/book_return/book_return.routes';
 import BorrowRoutes from './routers/borrow/borrow.routes';
 import AuthRoutes from './routers/auth/auth.routes';
+import QueueRoutes from './test/routes/queue.routes';
 
 class App {
   public app: Application;
@@ -36,7 +36,7 @@ class App {
     this.app.use(morgan('dev')); // endpoint logger
     this.app.use(compression()); // reduce size of response
     this.app.use(helmet()); // protect header from the client and server side
-    this.app.use(cors()); // allowing frontend to access the endpoint
+    this.app.use(cors());
     this.app.use(session({
       secret: 'olibraryapp.com',
       resave: false,
@@ -47,8 +47,6 @@ class App {
         maxAge: 24 * 60 * 60 * 1000
       }
     }));
-    this.app.use(passport.initialize());
-    this.app.use(passport.session());
   }
 
   protected routes(): void {
@@ -64,6 +62,7 @@ class App {
     this.app.use('/api/v1/charge', ChargeRoutes);
     this.app.use('/api/v1/bookreturn', BookReturnRoutes);
     this.app.use('/api/v1/borrow', BorrowRoutes);
+    this.app.use('/api/v1/sendmail', QueueRoutes);
   }
 }
 
