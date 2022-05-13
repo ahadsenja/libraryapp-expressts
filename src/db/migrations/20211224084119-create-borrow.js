@@ -1,4 +1,6 @@
 'use strict';
+var moment = require('moment');
+
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('borrows', {
@@ -9,10 +11,16 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       borrow_date: {
-        type: Sequelize.DATE
+        type: Sequelize.DATEONLY,
+        get() {
+          return moment.utc(new Date('borrow_date')).format('DD/MM/YYYY');
+        }
       },
       return_date: {
-        type: Sequelize.DATE
+        type: Sequelize.DATEONLY,
+        get() {
+          return moment.utc(new Date('return_date')).format('DD/MM/YYYY');
+        }
       },
       book_id: {
         type: Sequelize.INTEGER,
