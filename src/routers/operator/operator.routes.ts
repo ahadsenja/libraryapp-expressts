@@ -1,4 +1,5 @@
 import BaseRoutes from '../base.routes';
+
 import OperatorController from '../../controllers/operator/operator.controller';
 import { auth } from '../../middlewares/auth.middleware';
 
