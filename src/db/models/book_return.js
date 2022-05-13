@@ -33,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   book_return.init({
-    date: DataTypes.DATE,
+    date: DataTypes.DATEONLY,
     book_id: DataTypes.INTEGER,
     customer_id: DataTypes.INTEGER,
     operator_id: DataTypes.INTEGER

@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   charge.init({
-    date: DataTypes.DATE,
+    date: DataTypes.DATEONLY,
     cost: DataTypes.FLOAT,
     book_return_id: DataTypes.INTEGER,
     customer_id: DataTypes.INTEGER,

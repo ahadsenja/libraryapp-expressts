@@ -28,11 +28,11 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   borrow.init({
-    borrow_date: DataTypes.DATE,
-    return_date: DataTypes.DATE,
+    borrow_date: DataTypes.DATEONLY,
+    return_date: DataTypes.DATEONLY,
     book_id: DataTypes.INTEGER,
     customer_id: DataTypes.INTEGER,
-    operator_id: DataTypes.INTEGER
+    operator_id: DataTypes.INTEGER,
   }, {
     sequelize,
     modelName: 'borrow',
