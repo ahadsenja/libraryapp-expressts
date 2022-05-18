@@ -3,7 +3,6 @@ import cron from 'node-cron';
 import nodemailer from 'nodemailer';
 import moment from 'moment';
 import dotenv from 'dotenv';
-import borrowRoutes from '../../routers/borrow/borrow.routes';
 
 const db = require('../../db/models');
 
@@ -36,8 +35,13 @@ class QueueController {
       const tomorrow = moment.utc(today).format('YYYY-MM-DD');
 
       const borrows = await db.borrow.findAll({
-        where: { return_date: tomorrow }
+        where: { return_date: tomorrow },
+        include: ['book', 'customer']
       });
+
+      for (let i = 0; i <= borrows.length; i++) {
+        const email = borrows[i].customer.email;
+      }
 
       if (borrows) {
         transporter.sendMail(mailOptions, (error, info) => {
@@ -46,12 +50,12 @@ class QueueController {
           } else {
             console.log('Mail sent: ', info.response);
           }
-        })
+        });
       }
 
       res.send({
         data: borrows
-      });
+      })
     })
   }
 
