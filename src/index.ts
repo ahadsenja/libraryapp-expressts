@@ -20,6 +20,7 @@ import BookReturnRoutes from './routers/book_return/book_return.routes';
 import BorrowRoutes from './routers/borrow/borrow.routes';
 import AuthRoutes from './routers/auth/auth.routes';
 import QueueRoutes from './test/routes/queue.routes';
+import JobRoutes from './routers/job/job.routes';
 
 class App {
   public app: Application;
@@ -63,6 +64,7 @@ class App {
     this.app.use('/api/v1/bookreturn', BookReturnRoutes);
     this.app.use('/api/v1/borrow', BorrowRoutes);
     this.app.use('/api/v1/sendmail', QueueRoutes);
+    this.app.use('/api/v1/sendjobmail', JobRoutes);
   }
 }
 
