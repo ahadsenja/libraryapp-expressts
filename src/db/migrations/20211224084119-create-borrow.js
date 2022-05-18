@@ -22,6 +22,12 @@ module.exports = {
           return moment.utc(new Date('return_date')).format('DD/MM/YYYY');
         }
       },
+      overdue: {
+        type: Sequelize.INTEGER
+      },
+      charge: {
+        type: Sequelize.INTEGER
+      },
       book_id: {
         type: Sequelize.INTEGER,
         references: { model: 'books', key: 'id' },
