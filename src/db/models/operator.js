@@ -11,13 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      operator.hasMany(models.book_return, {
-        foreignKey: 'customer_id',
-        as: 'book_return'
-      });
-
       operator.hasMany(models.borrow, {
-        foreignKey: 'customer_id',
+        foreignKey: 'operator_id',
         as: 'borrow'
       });
     }
