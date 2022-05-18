@@ -15,7 +15,6 @@ import GenreRoutes from './routers/genre/genre.routes';
 import CategoryRoutes from './routers/category/category.routes';
 import PublisherRoutes from './routers/publisher/publisher.routes';
 import SettingRoutes from './routers/setting/setting.routes';
-import ChargeRoutes from './routers/charge/charge.routes';
 import BookReturnRoutes from './routers/book_return/book_return.routes';
 import BorrowRoutes from './routers/borrow/borrow.routes';
 import AuthRoutes from './routers/auth/auth.routes';
@@ -60,7 +59,6 @@ class App {
     this.app.use('/api/v1/category', CategoryRoutes);
     this.app.use('/api/v1/publisher', PublisherRoutes);
     this.app.use('/api/v1/setting', SettingRoutes);
-    this.app.use('/api/v1/charge', ChargeRoutes);
     this.app.use('/api/v1/bookreturn', BookReturnRoutes);
     this.app.use('/api/v1/borrow', BorrowRoutes);
     this.app.use('/api/v1/sendmail', QueueRoutes);
