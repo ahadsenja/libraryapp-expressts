@@ -9,7 +9,7 @@ dotenv.config();
 class BorrowController implements IController {
     findAll = async (req: Request, res: Response): Promise<Response> => {
         const borrow = await db.borrow.findAll({
-            attributes: ['id', 'borrow_date', 'return_date'],
+            attributes: ['id', 'borrow_date', 'return_date', 'overdue', 'charge'],
             include: ['book', 'customer', 'operator']
         });
 
@@ -32,11 +32,11 @@ class BorrowController implements IController {
     }
 
     create = async (req: Request, res: Response): Promise<Response> => {
-        const { book_id, customer_id, operator_id, borrow_date, return_date } = req.body;
+        const { book_id, customer_id, operator_id, borrow_date, return_date, overdue, charge } = req.body;
 
 
         const borrow = await db.borrow.create({
-            book_id, customer_id, operator_id, borrow_date, return_date,
+            book_id, customer_id, operator_id, borrow_date, return_date, overdue, charge,
             include: ['book', 'customer', 'operator']
         });
 
@@ -47,10 +47,10 @@ class BorrowController implements IController {
 
     update = async (req: Request, res: Response): Promise<Response> => {
         const { id } = req.params;
-        const { book_id, customer_id, operator_id, borrow_date, return_date } = req.body;
+        const { book_id, customer_id, operator_id, borrow_date, return_date, overdue, charge } = req.body;
 
         const borrow = await db.borrow.update({
-            book_id, customer_id, operator_id, borrow_date, return_date
+            book_id, customer_id, operator_id, borrow_date, return_date, overdue, charge
         }, {
             where: { id }
         });
