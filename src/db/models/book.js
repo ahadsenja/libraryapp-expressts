@@ -31,11 +31,6 @@ module.exports = (sequelize, DataTypes) => {
         as: 'publisher'
       });
 
-      book.hasMany(models.book_return, {
-        foreignKey: 'book_id',
-        as: 'book_return'
-      });
-
       book.hasMany(models.borrow, {
         foreignKey: 'book_id',
         as: 'borrow'
