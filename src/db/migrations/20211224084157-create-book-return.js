@@ -11,19 +11,15 @@ module.exports = {
       date: {
         type: Sequelize.DATEONLY
       },
-      book_id: {
-        type: Sequelize.INTEGER,
-        references: { model: 'books', key: 'id' },
-        allowNull: false
+      pay_amount: {
+        type: Sequelize.INTEGER
       },
-      customer_id: {
-        type: Sequelize.INTEGER,
-        references: { model: 'customers', key: 'id' },
-        allowNull: false
+      status: {
+        type: Sequelize.STRING
       },
-      operator_id: {
+      borrow_id: {
         type: Sequelize.INTEGER,
-        references: { model: 'operators', key: 'id' },
+        references: { model: 'borrows', key: 'id' },
         allowNull: false
       },
       created_at: {
