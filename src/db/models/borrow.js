@@ -25,11 +25,18 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'operator_id',
         as: 'operator'
       });
+
+      borrow.hasOne(models.book_return, {
+        foreignKey: 'borrow_id',
+        as: 'book_return'
+      });
     }
   };
   borrow.init({
     borrow_date: DataTypes.DATEONLY,
     return_date: DataTypes.DATEONLY,
+    overdue: DataTypes.INTEGER,
+    charge: DataTypes.INTEGER,
     book_id: DataTypes.INTEGER,
     customer_id: DataTypes.INTEGER,
     operator_id: DataTypes.INTEGER,
