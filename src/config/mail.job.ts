@@ -10,12 +10,45 @@ dotenv.config();
 class MailJob {
   senderMailConfig: object = {};
   mailOptions: object = {};
+
   email: string = '';
   customerName: string = '';
-  cost: number = 0;
+
+  charge: number = 0;
+  overdue: number = 0;
 
   now = new Date();
   today = new Date(this.now);
+
+  chargeCount = async () => {
+    this.today.setDate(this.today.getDate());
+    const thisDay = moment.utc(this.today).format('YYYY-MM-DD');
+
+    const borrows = await db.borrow.findAll({
+      where: { return_date: thisDay },
+      include: ['book', 'customer']
+    });
+
+    if (borrows) {
+      for (let b of borrows) {
+        const rDate = new Date(b.return_date);
+
+        if (this.today > rDate) {
+          // this.charge += 2000;
+          // this.overdue += 1;
+
+          // const updateCharge = await db.borrow.update({
+          //   charge: this.charge,
+          //   overdue: this.overdue
+          // }, {
+          //   where: { return_date: rDate }
+          // });
+
+          console.log('updated charge: ', rDate);
+        }
+      }
+    }
+  }
 
   sendReminderMail = async () => {
     this.today.setDate(this.today.getDate() + 1);
@@ -26,18 +59,9 @@ class MailJob {
       include: ['book', 'customer']
     });
 
-    const charge = await db.charge.create({
-      cost: this.cost,
-
-    });
-
     for (let i = 0; i < borrows.length; i++) {
       this.email = borrows[i].customer.email;
       this.customerName = borrows[i].customer.name;
-
-      if (borrows[i].return_date + 1) {
-        this.cost += 2000;
-      }
     }
 
     this.senderMailConfig = {
