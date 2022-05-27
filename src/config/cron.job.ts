@@ -5,14 +5,13 @@ import moment from 'moment';
 
 import MailJob from './mail.job';
 
-const db = require('../db/models');
-
 dotenv.config();
 
 class CronJob {
   jobs = () => {
     cron.schedule('* * * * *', () => {
-      MailJob.sendReminderMail();
+      // MailJob.sendReminderMail();
+      MailJob.chargeCount();
     });
   }
 }
