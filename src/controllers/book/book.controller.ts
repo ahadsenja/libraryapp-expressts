@@ -8,7 +8,8 @@ class BookController implements IController {
     findAll = async (req: Request, res: Response): Promise<Response> => {
         const books = await db.book.findAll({
             attributes: ['id', 'title', 'year', 'stock'],
-            include: ['author', 'publisher', 'category', 'genre']
+            include: ['author', 'publisher', 'category', 'genre'],
+            limit: 10,
         });
 
         return res.send({
@@ -66,6 +67,15 @@ class BookController implements IController {
         return res.send({
             data: book
         });
+    }
+
+    search = async (searchWord: string) => {
+        return await db.books.findAll({
+            attributes: ['id', 'title'],
+            where: {
+                content: '%' + searchWord + '%'
+            }
+        })
     }
 
 }
