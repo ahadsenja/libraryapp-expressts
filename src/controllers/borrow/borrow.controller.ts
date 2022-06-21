@@ -9,7 +9,7 @@ dotenv.config();
 class BorrowController implements IController {
     findAll = async (req: Request, res: Response): Promise<Response> => {
         const borrow = await db.borrow.findAll({
-            attributes: ['id', 'borrow_date', 'return_date', 'overdue', 'charge'],
+            attributes: ['id', 'borrow_date', 'return_date', 'overdue', 'charge', 'paid'],
             include: ['book', 'customer', 'operator']
         });
 

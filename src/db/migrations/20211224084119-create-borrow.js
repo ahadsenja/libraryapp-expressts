@@ -28,6 +28,10 @@ module.exports = {
       charge: {
         type: Sequelize.INTEGER
       },
+      paid: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
+      },
       book_id: {
         type: Sequelize.INTEGER,
         references: { model: 'books', key: 'id' },

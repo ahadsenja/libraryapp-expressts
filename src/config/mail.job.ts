@@ -25,28 +25,23 @@ class MailJob {
     const thisDay = moment.utc(this.today).format('YYYY-MM-DD');
 
     const borrows = await db.borrow.findAll({
-      where: { return_date: thisDay },
-      include: ['book', 'customer']
+      where: { paid: false },
+      include: ['book', 'customer'],
+      sort: ['return_date' < thisDay]
     });
 
+    const rDate = borrows[0].dataValues.return_date;
+
     if (borrows) {
-      for (let b of borrows) {
-        const rDate = new Date(b.return_date);
+      this.charge += 2000;
+      this.overdue += 1;
 
-        if (this.today > rDate) {
-          // this.charge += 2000;
-          // this.overdue += 1;
-
-          // const updateCharge = await db.borrow.update({
-          //   charge: this.charge,
-          //   overdue: this.overdue
-          // }, {
-          //   where: { return_date: rDate }
-          // });
-
-          console.log('updated charge: ', rDate);
-        }
-      }
+      return await db.borrow.update({
+        charge: this.charge,
+        overdue: this.overdue
+      }, {
+        where: { return_date: rDate }
+      });
     }
   }
 

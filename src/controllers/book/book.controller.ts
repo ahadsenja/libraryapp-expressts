@@ -1,19 +1,39 @@
 import { Request, Response } from "express";
-import author from "../../db/models/author";
 
 import IController from "../../interfaces/controller.interface";
 const db = require('../../db/models')
+const Op = db.Sequelize.Op;
+
+const getPagination = (page: any, size: any) => {
+    const limit = size ? +size : 10;
+    const offset = page ? page * limit : 0;
+    return { limit, offset };
+}
+
+const getPagingData = (data: any, page: any, limit: any) => {
+    const { count: totalItems, rows: books } = data;
+    const currentPage = page ? +page : 0;
+    const totalPages = Math.ceil(totalItems / limit);
+    return { totalItems, books, totalPages, currentPage };
+}
 
 class BookController implements IController {
     findAll = async (req: Request, res: Response): Promise<Response> => {
-        const books = await db.book.findAll({
+        const { page, size, title } = req.query;
+        let condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
+        const { limit, offset } = getPagination(page, size);
+
+        return await db.book.findAndCountAll({
             attributes: ['id', 'title', 'year', 'stock'],
             include: ['author', 'publisher', 'category', 'genre'],
-            limit: 10,
-        });
-
-        return res.send({
-            data: books
+            where: condition, limit, offset
+        }).then((data: any) => {
+            const response = getPagingData(data, page, limit);
+            res.send([response]);
+        }).catch((error: { message: any; }) => {
+            res.status(500).send({
+                message: error.message || 'Some error occurred when retrieving books'
+            })
         });
     }
 

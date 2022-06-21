@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+const { Op } = require("sequelize");
 
 import IController from "../../interfaces/controller.interface";
 const db = require('../../db/models');
@@ -61,6 +62,31 @@ class CategoryController implements IController {
         return res.send({
             data: category
         });
+    }
+
+    search = async (req: Request, res: Response): Promise<Response> => {
+        let { name } = req.params;
+
+        if (!name) name = '';
+
+        try {
+            let category = await db.category.findAll({
+                order: [['id', 'ASC']],
+                where: {
+                    [Op.and]: [
+                        {
+                            name: {
+                                [Op.iLike]: '%' + name + '%'
+                            }
+                        }
+                    ]
+                }
+            });
+
+            return res.status(200).json(category);
+        } catch (error) {
+            return res.status(500).json(error);
+        }
     }
 }
 

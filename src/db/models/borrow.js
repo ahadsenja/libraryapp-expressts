@@ -37,6 +37,7 @@ module.exports = (sequelize, DataTypes) => {
     return_date: DataTypes.DATEONLY,
     overdue: DataTypes.INTEGER,
     charge: DataTypes.INTEGER,
+    paid: DataTypes.BOOLEAN,
     book_id: DataTypes.INTEGER,
     customer_id: DataTypes.INTEGER,
     operator_id: DataTypes.INTEGER,

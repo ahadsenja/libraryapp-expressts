@@ -9,6 +9,7 @@ class CategoryRoutes extends BaseRoutes {
         this.router.post('/', auth, CategoryController.create);
         this.router.put('/:id', auth, CategoryController.update);
         this.router.delete('/:id', auth, CategoryController.delete);
+        this.router.get('/name/:name?', CategoryController.search);
     }
 }
 
